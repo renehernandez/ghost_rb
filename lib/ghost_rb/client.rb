@@ -7,14 +7,13 @@ require 'json'
 module GhostRb
   class Client
     
-    attr_accessor :base_url, :client_id, :client_secret
+    attr_reader :base_url, :client_id, :client_secret, :default_query
 
     def initialize(base_url, client_id, client_secret)
       @base_url = URI.join(base_url, 'ghost/', 'api/', 'v0.1/')
       @client_id = client_id
       @client_secret = client_secret
       @http = HTTPClient.new(base_url: @base_url)
-      @auth_header = nil
       @default_query = {client_id: @client_id, client_secret: @client_secret}
     end
 

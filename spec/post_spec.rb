@@ -6,8 +6,24 @@ RSpec.describe GhostRb::Resources::Post do
   let(:post) { GhostRb::Resources::Post.new }
 
   context '#new' do
-    it 'do not throw exception' do
+    it 'does not throw exception' do
       expect { post }.not_to raise_error
+    end
+  end
+
+  context '#featured?' do
+    it 'returns same value of accessor field' do
+      post.featured = true
+
+      expect(post.featured?).to eql(true)
+    end
+  end
+
+  context '#page?' do
+    it 'returns same value of accessor field' do
+      post.page = false
+
+      expect(post.page?).to eql(false)
     end
   end
 
@@ -19,6 +35,25 @@ RSpec.describe GhostRb::Resources::Post do
       expect(test_post.title).to eql('Generated')
     end
 
-  end
+    it 'includes an author' do
+      authored_post = GhostRb::Resources::Post.generate(id: 1, title: 'Authored',
+                                                        author: {name: 'Rene', status: 'active'})
 
+      expect(authored_post.author).not_to be_nil
+      expect(authored_post.author.name).to eql('Rene')
+    end
+
+    it 'includes tags list' do
+      tagged_post = GhostRb::Resources::Post.generate(id: 1, title: 'Authored',
+                                                        tags: [
+                                                          {name: 'blue', visibility: 'public'},
+                                                          {name: 'green', visibility: 'private'}
+                                                        ])
+
+
+      expect(tagged_post.tags.size).to eql(2)
+      expect(tagged_post.tags[0].name).to eql('blue')
+      expect(tagged_post.tags[1].visibility).to eql('private')
+    end
+  end
 end

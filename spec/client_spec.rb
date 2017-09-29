@@ -30,4 +30,12 @@ RSpec.describe GhostRb::Client, integration: true do
     end
   end
 
+  context '#get_posts' do
+    it 'post is of type GhostRb::Resources::Post' do
+      status, posts = client.get_posts(1)
+
+      expect(posts[0].class).to be GhostRb::Resources::Post
+    end
+  end
+
 end

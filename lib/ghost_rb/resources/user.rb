@@ -4,9 +4,10 @@ module GhostRb
   module Resources
     # @author Rene Hernandez
     # @since 0.1
-    class Tag < BaseResource
+    class User < BaseResource
 
-      attr_accessor :id, :name, :slug, :visibility, :posts_count
+      attr_accessor :id, :bio, :location, :name, :slug, :status, :visibility, 
+                    :website, :posts_count
 
       def self.generate(hash)
         inst = super(hash)
@@ -14,7 +15,7 @@ module GhostRb
 
         inst
       end
-      
+
     end
   end
 end

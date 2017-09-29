@@ -2,6 +2,8 @@
 
 module GhostRb
   module Resources
+    # @author Rene Hernandez
+    # @since 0.1
     class BaseResource
       include Hydratable
 
