@@ -24,7 +24,7 @@ module GhostRb
     end
 
     def get_tags(limit = 'all', include = 'count.posts')
-      query = @defaul_query.merge({ limit: limit, include: include })
+      query = @default_query.merge({ limit: limit, include: include })
 
       get_resources('tags', query, GhostRb::Resources::Tag)
     end

@@ -26,15 +26,17 @@ RSpec.describe GhostRb::Client, integration: true do
     it 'post is of type GhostRb::Resources::Post' do
       status, posts = client.get_posts(1)
 
+      expect(status).to eql(200)
       expect(posts[0].class).to be GhostRb::Resources::Post
     end
   end
 
-  context '#get_posts' do
-    it 'post is of type GhostRb::Resources::Post' do
-      status, posts = client.get_posts(1)
+  context '#get_tags' do
+    it 'tag is of type GhostRb::Resources::Tag' do
+      status, tags = client.get_tags(1)
 
-      expect(posts[0].class).to be GhostRb::Resources::Post
+      expect(status).to eql(200)
+      expect(tags[0].class).to be GhostRb::Resources::Tag
     end
   end
 
