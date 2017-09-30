@@ -1,4 +1,4 @@
-# frozen_literal_string: true
+# frozen_string_literal: true
 
 require 'spec_helper'
 
@@ -29,27 +29,30 @@ RSpec.describe GhostRb::Resources::Post do
 
   context '.generate' do
     it 'generates a post with attributes already set' do
-      test_post = GhostRb::Resources::Post.generate({id: 1, title: 'Generated'})
+      test_post = GhostRb::Resources::Post.generate(id: 1,
+                                                    title: 'Generated')
 
       expect(test_post.id).to eql(1)
       expect(test_post.title).to eql('Generated')
     end
 
     it 'includes an author' do
-      authored_post = GhostRb::Resources::Post.generate(id: 1, title: 'Authored',
-                                                        author: {name: 'Rene', status: 'active'})
+      authored_post = GhostRb::Resources::Post.generate(id: 1,
+                                                        title: 'Authored',
+                                                        author: { name: 'Rene',
+                                                                  status: 'active' })
 
       expect(authored_post.author).not_to be_nil
       expect(authored_post.author.name).to eql('Rene')
     end
 
     it 'includes tags list' do
-      tagged_post = GhostRb::Resources::Post.generate(id: 1, title: 'Authored',
-                                                        tags: [
-                                                          {name: 'blue', visibility: 'public'},
-                                                          {name: 'green', visibility: 'private'}
-                                                        ])
-
+      tagged_post = GhostRb::Resources::Post.generate(id: 1,
+                                                      title: 'Authored',
+                                                      tags: [
+                                                        { name: 'blue', visibility: 'public' },
+                                                        { name: 'green', visibility: 'private' }
+                                                      ])
 
       expect(tagged_post.tags.size).to eql(2)
       expect(tagged_post.tags[0].name).to eql('blue')

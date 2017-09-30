@@ -5,8 +5,9 @@ require 'uri'
 require 'json'
 
 module GhostRb
+  # @author Rene Hernandez
+  # @since 0.1
   class Client
-    
     attr_reader :base_url, :client_id, :client_secret, :default_query
 
     def initialize(base_url, client_id, client_secret)
@@ -14,17 +15,17 @@ module GhostRb
       @client_id = client_id
       @client_secret = client_secret
       @http = HTTPClient.new(base_url: @base_url)
-      @default_query = {client_id: @client_id, client_secret: @client_secret}
+      @default_query = { client_id: @client_id, client_secret: @client_secret }
     end
 
     def get_posts(limit = 'all', include = 'tags,author')
-      query = @default_query.merge({ limit: limit, include: include })
-      
+      query = @default_query.merge(limit: limit, include: include)
+
       get_resources('posts', query, GhostRb::Resources::Post)
     end
 
     def get_tags(limit = 'all', include = 'count.posts')
-      query = @default_query.merge({ limit: limit, include: include })
+      query = @default_query.merge(limit: limit, include: include)
 
       get_resources('tags', query, GhostRb::Resources::Tag)
     end
@@ -35,11 +36,11 @@ module GhostRb
       response = @http.get(resource, query, {}, follow_redirect: true)
       content = JSON.parse(response.body)
 
-      return response.status_code, map_to(content[resource], klass)
+      [response.status_code, map_to(content[resource], klass)]
     end
 
     def map_to(data, klass)
-      data.map {|entry| klass.generate(entry)}
+      data.map { |entry| klass.generate(entry) }
     end
   end
 end

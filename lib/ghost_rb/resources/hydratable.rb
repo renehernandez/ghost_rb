@@ -1,13 +1,14 @@
-# frozen_literal_string: true
+# frozen_string_literal: true
 
 module GhostRb
   module Resources
+    # @author Rene Hernandez
+    # @since 0.1
     module Hydratable
-
       def hydrate(hash)
-        hash.each do |k, v| 
+        hash.each do |k, v|
           method_symbol = "#{k}=".to_sym
-          self.public_send(method_symbol, v) if self.respond_to?(method_symbol)
+          public_send(method_symbol, v) if respond_to?(method_symbol)
         end
       end
     end

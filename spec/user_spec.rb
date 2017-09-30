@@ -1,4 +1,4 @@
-# frozen_literal_string: true
+# frozen_string_literal: true
 
 require 'spec_helper'
 
@@ -20,8 +20,9 @@ RSpec.describe GhostRb::Resources::User do
     end
 
     it 'includes posts count' do
-      counted_user = GhostRb::Resources::User.generate(id: 1, name: 'Rene',
-                                                        count: {posts: 5})
+      counted_user = GhostRb::Resources::User.generate(id: 1,
+                                                       name: 'Rene',
+                                                       count: { posts: 5 })
 
       expect(counted_user.posts_count).to eql(5)
     end

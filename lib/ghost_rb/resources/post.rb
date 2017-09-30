@@ -1,22 +1,17 @@
-# frozen_literal_string: true
+# frozen_string_literal: true
 
 module GhostRb
   module Resources
     # @author Rene Hernandez
     # @since 0.1
     class Post < BaseResource
-      
-      attr_accessor :id, :title, :slug, :html, :tags, :page,
+      attr_accessor :id, :title, :slug, :html, :page,
                     :status, :published_at, :created_at, :author_id,
                     :visibility, :featured, :plaintext, :author, :tags
-                    
-      def page?
-        self.page
-      end
 
-      def featured?
-        self.featured
-      end
+      alias page? page
+
+      alias featured? featured
 
       def self.generate(hash)
         inst = super(hash)
@@ -25,7 +20,6 @@ module GhostRb
 
         inst
       end
-      
     end
   end
 end

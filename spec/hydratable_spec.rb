@@ -1,9 +1,9 @@
-# frozen_literal_string: true
+# frozen_string_literal: true
 
 require 'spec_helper'
 
 RSpec.describe GhostRb::Resources::Hydratable do
-  let(:object) do 
+  let(:object) do
     obj = Class.new do
       include GhostRb::Resources::Hydratable
 
@@ -18,17 +18,16 @@ RSpec.describe GhostRb::Resources::Hydratable do
     obj
   end
 
-
   context '#hydrate' do
     it 'updates writable attributes' do
-      hash = {foo: 10}
+      hash = { foo: 10 }
       object.hydrate(hash)
 
       expect(object.foo).to eql(10)
     end
 
     it "doesn't change readable attributes" do
-      hash = {bar: 5}
+      hash = { bar: 5 }
       object.hydrate(hash)
 
       expect(object.bar).to eql(3)

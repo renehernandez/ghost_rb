@@ -1,4 +1,4 @@
-# frozen_literal_string: true
+# frozen_string_literal: true
 
 require 'spec_helper'
 
@@ -20,8 +20,9 @@ RSpec.describe GhostRb::Resources::Tag do
     end
 
     it 'includes posts count' do
-      counted_tag = GhostRb::Resources::Tag.generate(id: 1, name: 'With Posts Count',
-                                                        count: {posts: 10})
+      counted_tag = GhostRb::Resources::Tag.generate(id: 1,
+                                                     name: 'With Posts Count',
+                                                     count: { posts: 10 })
 
       expect(counted_tag.posts_count).to eql(10)
     end

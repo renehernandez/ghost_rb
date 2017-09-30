@@ -1,11 +1,10 @@
-# frozen_literal_string: true
+# frozen_string_literal: true
 
 module GhostRb
   module Resources
     # @author Rene Hernandez
     # @since 0.1
     class Tag < BaseResource
-
       attr_accessor :id, :name, :slug, :visibility, :posts_count
 
       def self.generate(hash)
@@ -14,7 +13,6 @@ module GhostRb
 
         inst
       end
-      
     end
   end
 end

@@ -1,20 +1,19 @@
-# frozen_literal_string: true
+# frozen_string_literal: true
 
 require 'spec_helper'
 
 RSpec.describe GhostRb::Client, integration: true do
   let(:dummy_client) do
-    GhostRb::Client.new('https://example.com', 
-                        'hello', 'world'
-                      )
+    GhostRb::Client.new('https://example.com',
+                        'hello',
+                        'world')
   end
 
   let(:client) do
-    GhostRb::Client.new(ENV['URL'], 
+    GhostRb::Client.new(ENV['URL'],
                         ENV['CLIENT_ID'],
                         ENV['CLIENT_SECRET'])
   end
-
 
   context '#new' do
     it 'is does not raise error' do
@@ -39,5 +38,4 @@ RSpec.describe GhostRb::Client, integration: true do
       expect(tags[0].class).to be GhostRb::Resources::Tag
     end
   end
-
 end
