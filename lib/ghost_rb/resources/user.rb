@@ -5,7 +5,7 @@ module GhostRb
     # @author Rene Hernandez
     # @since 0.1
     class User < BaseResource
-      attr_accessor :id, :bio, :location, :name, :slug, :status,
+      attr_accessor :id, :bio, :location, :name, :slug,
                     :visibility, :website, :posts_count
 
       def self.generate(hash)
