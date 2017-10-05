@@ -29,8 +29,8 @@ deploy:
 - provider: rubygems
   api_key:
     secure: YDkCNjnzyBTEcZLjKqt6ep1rIHYGF6tbqwNVUXEOFiBpQA534xl8AcsNIcb4MZGcNzn9ZeJiHstIeHKKP135sLKnA00RptoVtNAHn9F5hBgDyPc5GyIEzml4wDv7NM+jcM4df39CEBIyYi+77vRUvUfrOJ+0RF7CxvlGX4ZUvbI+5edFXjt9ioVPOhG+V6FyTbGlNEG2Rj4lx6jjUF3HYVVhwHCva3F4uXNh/3CjZXvcJ6ZahKCiO0/pqxZsS6L/xfDaih/jg/8B3nQ2L7Lx+g5A8uNLCZ4u2G4SPoCg0a+mrttJAkIgTNC8reVBAbS9V7BV6/OJcJwwhJKNQ+UsleTv0oDdOWsSFgL8I2qtUJb7r1cpmFHi/LC5fnfpfC6xcoRk7sxrFboYsbm8yGt2KEk68Jregl9j0EqrHynog/9zFKx9Sfcrw2Fo+6oMACDYm3NzlcAo+6bQHni/kV94oaD58nZ3OQgvBMh4jeZ854jjCbpJaCMs2u2CgezjlTZCY7+E38t+/tiFlAOakVBSC9oGEYCFxh5X/clKXi7Q2PZj8j/pmcc51wmVFEMB5Led7kj1R1YWCnalhIZO4hpz83yBGCYZQgm2AZy0r8k741L9ab0H/KhMSJHGN2ym2Dgdpg1a0QdlMGVidIQGNjeSEx7TPkkDStuM588qKcR8C6M=
-  gem: data_structures_101
+  gem: ghost_rb
   on:
     tags: true
-    repo: renehernandez/data_structures_101
+    repo: renehernandez/ghost_rb
     branch: master
