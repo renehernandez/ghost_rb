@@ -10,3 +10,14 @@
 
 # rspec failure tracking
 .rspec_status
+
+# VS Code files
+.vscode
+
+# Gem files
+*.gem
+
+# Jekyll 
+_site
+.sass-cache
+.jekyll-metadata
