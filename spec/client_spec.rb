@@ -16,26 +16,24 @@ RSpec.describe GhostRb::Client, integration: true do
   end
 
   context '#new' do
-    it 'is does not raise error' do
+    it 'does not raise error' do
       expect { dummy_client }.not_to raise_error
     end
   end
 
-  context '#get_posts' do
-    it 'post is of type GhostRb::Resources::Post' do
-      status, posts = client.get_posts(1)
+  context '#posts' do
+    it 'returns instance of GhostRb::Controllers::PostsController' do
+      ctrl = client.posts
 
-      expect(status).to eql(200)
-      expect(posts[0].class).to be GhostRb::Resources::Post
+      expect(ctrl.class).to eql(GhostRb::Controllers::PostsController)
     end
   end
 
-  context '#get_tags' do
-    it 'tag is of type GhostRb::Resources::Tag' do
-      status, tags = client.get_tags(1)
+  context '#tags' do
+    it 'returns instance of GhostRb::Controllers::TagsController' do
+      ctrl = client.tags
 
-      expect(status).to eql(200)
-      expect(tags[0].class).to be GhostRb::Resources::Tag
+      expect(ctrl).to be_a(GhostRb::Controllers::TagsController)
     end
   end
 end
