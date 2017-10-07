@@ -2,13 +2,8 @@
 
 require 'spec_helper'
 
-RSpec.describe GhostRb::Controllers::BaseController, integration: true do
-  let(:ctrl) do
-    client = GhostRb::Client.new(ENV['URL'],
-                          ENV['CLIENT_ID'],
-                          ENV['CLIENT_SECRET'])
-    GhostRb::Controllers::BaseController.new(client)
-  end
+RSpec.describe GhostRb::Controllers::BaseController do
+  let(:ctrl) { GhostRb::Controllers::BaseController.new(nil) }
 
   describe 'fluent' do
     context '#limit' do 
@@ -24,6 +19,38 @@ RSpec.describe GhostRb::Controllers::BaseController, integration: true do
         included_ctrl = ctrl.include('hello')
 
         expect(included_ctrl).to eql(ctrl)
+      end
+    end
+
+    context '#page' do 
+      it 'returns same ctrl instance' do
+        paged_ctrl = ctrl.page(2)
+
+        expect(paged_ctrl).to eql(ctrl)
+      end
+    end
+
+    context '#order' do 
+      it 'returns same ctrl instance' do
+        ordered_ctrl = ctrl.order('created_at')
+
+        expect(ordered_ctrl).to eql(ctrl)
+      end
+    end
+
+    context '#fields' do 
+      it 'returns same ctrl instance' do
+        fielded_ctrl = ctrl.fields(2)
+
+        expect(fielded_ctrl).to eql(ctrl)
+      end
+    end
+
+    context '#where' do 
+      it 'returns same ctrl instance' do
+        where_ctrl = ctrl.where(include: 'author')
+
+        expect(where_ctrl).to eql(ctrl)
       end
     end
   end

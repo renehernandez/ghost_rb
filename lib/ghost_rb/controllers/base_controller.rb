@@ -9,7 +9,6 @@ module GhostRb
     # @author Rene Hernandez
     # @since 0.2
     class BaseController
-
       attr_reader :client, :params
 
       def initialize(client)
@@ -18,52 +17,49 @@ module GhostRb
       end
 
       def limit(limit)
-        @params[:limit] = limit
-        self
+        where(limit: limit)
       end
 
       def page(page)
-        @params[:page] = page
-        self
+        where(page: page)
       end
 
-      def order(str)
-        @params[:order] = str
-        self
+      def order(order_str)
+        where(order: order_str)
       end
 
-      def fields(str)
-        @params[:fields] = str
-        self
+      def fields(fields_str)
+        where(fields: fields_str)
       end
 
-      def include(str)
-        @params[:include] = str
-        self
+      def filter(filter_query)
+        where(filter: filter_query)
       end
 
-      def where(hash = {})
+      def include(resources_str)
+        where(include: resources_str)
+      end
+
+      def where(hash)
         @params.merge!(hash)
         self
       end
 
-      def find(id)
+      def find_by(kvp)
         @params.keys.reject { |k| k == :include }.each do |key|
           @params.delete(key)
         end
 
-        fetch_single(id)
+        fetch_single(kvp)
       end
 
       private
 
-      def fetch_single(id)
+      def fetch_single(kvp)
         query = client.default_query.merge(@params)
-        status, content = client.get([endpoint, id].join('/'), query)
+        status, content = client.get(format_endpoint(kvp), query)
 
-        if error?(status)
-          raise_fetch_single_error(id, status, content['errors'])
-        end
+        raise_fetch_single_error(kvp, status, content['errors']) if error?(status)
 
         resource_klass.generate(content)
       end
@@ -72,15 +68,18 @@ module GhostRb
         query = client.default_query.merge(@params)
         status, content = client.get(endpoint, query)
 
-        if error?(status)
-          raise_fetch_list_error(status, content['errors'])
-        end
+        raise_fetch_list_error(status, content['errors']) if error?(status)
 
         content
       end
 
       def error?(status)
         status >= 400
+      end
+
+      def format_endpoint(kvp)
+        return [endpoint, kvp[:id]].join('/') if kvp.key?(:id)
+        [endpoint, 'slug', kvp[:slug]].join('/')
       end
     end
   end

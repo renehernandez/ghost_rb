@@ -25,9 +25,13 @@ RSpec.describe GhostRb::Controllers::TagsController do
     end
   end
 
-  context '#find' do 
-    it 'throws GhostRb::Errors::RequestError ' do
-      expect { ctrl.find(-1) }.to raise_error(GhostRb::Errors::RequestError)
+  context '#find_by' do 
+    it 'throws GhostRb::Errors::RequestError with invalid id' do
+      expect { ctrl.find_by(id: -1) }.to raise_error(GhostRb::Errors::RequestError)
+    end
+
+    it 'throws GhostRb::Errors::RequestError with invalid slug' do
+      expect { ctrl.find_by(slug: 'not-present') }.to raise_error(GhostRb::Errors::RequestError)
     end
   end
 end

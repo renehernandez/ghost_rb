@@ -19,8 +19,10 @@ module GhostRb
 
       private
 
-      def raise_fetch_single_error(id, status, errors)
-        raise Errors::RequestError.new("Unable to fetch tag with id = #{id}",
+      def raise_fetch_single_error(kvp, status, errors)
+        key = kvp.key?(:id) ? :id : :slug
+        message = "Unable to fetch tag with #{key} = #{kvp[key]}"      
+        raise Errors::RequestError.new(message,
                                    status,
                                    errors)
       end

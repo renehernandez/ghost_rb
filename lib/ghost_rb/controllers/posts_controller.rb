@@ -17,10 +17,16 @@ module GhostRb
         fetch_list['posts'].map { |r| @resource_klass.generate(r) }
       end
 
+      def formats(formats)
+        where(formats: formats)
+      end
+
       private
 
-      def raise_fetch_single_error(id, status, errors)
-        raise Errors::RequestError.new("Unable to fetch post with id = #{id}",
+      def raise_fetch_single_error(kvp, status, errors)
+        key = kvp.key?(:id) ? :id : :slug
+        message = "Unable to fetch tag with #{key} = #{kvp[key]}"      
+        raise Errors::RequestError.new(message,
                                    status,
                                    errors)
       end
