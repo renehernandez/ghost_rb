@@ -15,5 +15,7 @@ module GhostRb
         @errors = errors
       end
     end
+
+    InvalidEndpointError = Class.new(StandardError)
   end
 end

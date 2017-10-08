@@ -3,7 +3,11 @@
 require 'spec_helper'
 
 RSpec.describe GhostRb::Controllers::BaseController do
-  let(:ctrl) { GhostRb::Controllers::BaseController.new(nil) }
+  let(:ctrl) do 
+    obj = GhostRb::Controllers::BaseController.new(nil)
+    obj.define_singleton_method(:endpoint) { 'tests' }
+    obj
+  end
 
   describe 'fluent' do
     context '#limit' do 
@@ -51,6 +55,12 @@ RSpec.describe GhostRb::Controllers::BaseController do
         where_ctrl = ctrl.where(include: 'author')
 
         expect(where_ctrl).to eql(ctrl)
+      end
+    end
+
+    context '#find_by' do 
+      it 'throws GhostRb::Errors::RequestError with invalid key_value' do
+        expect { ctrl.find_by(data: 'hello') }.to raise_error(GhostRb::Errors::InvalidEndpointError)
       end
     end
   end
