@@ -16,6 +16,8 @@ module GhostRb
       end
     end
 
+    # @author Rene Hernandez
+    # @since 0.2
     InvalidEndpointError = Class.new(StandardError)
   end
 end

@@ -25,16 +25,16 @@ module GhostRb
 
       def raise_fetch_single_error(kvp, status, errors)
         key = kvp.key?(:id) ? :id : :slug
-        message = "Unable to fetch tag with #{key} = #{kvp[key]}"      
+        message = "Unable to fetch tag with #{key} = #{kvp[key]}"
         raise Errors::RequestError.new(message,
-                                   status,
-                                   errors)
+                                       status,
+                                       errors)
       end
 
       def raise_fetch_list_error(status, errors)
-        raise Errors::RequestError.new("Unable to fetch posts",
-                              status,
-                              errors)
+        raise Errors::RequestError.new('Unable to fetch posts',
+                                       status,
+                                       errors)
       end
     end
   end

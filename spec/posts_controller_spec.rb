@@ -15,7 +15,7 @@ RSpec.describe GhostRb::Controllers::PostsController, integration: true do
       expect { ctrl }.not_to raise_error
     end
   end
-  
+
   context '#all' do
     it 'returns posts array' do
       posts = ctrl.all
@@ -25,13 +25,13 @@ RSpec.describe GhostRb::Controllers::PostsController, integration: true do
     end
   end
 
-  context '#limit' do 
+  context '#limit' do
     it 'returns 1 post' do
       expect(ctrl.limit(1).all.size).to eql(1)
     end
-  end 
+  end
 
-  context '#find_by' do 
+  context '#find_by' do
     it 'throws GhostRb::Errors::RequestError with invalid id' do
       expect { ctrl.find_by(id: -1) }.to raise_error(GhostRb::Errors::RequestError)
     end

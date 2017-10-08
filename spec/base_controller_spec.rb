@@ -3,14 +3,14 @@
 require 'spec_helper'
 
 RSpec.describe GhostRb::Controllers::BaseController do
-  let(:ctrl) do 
+  let(:ctrl) do
     obj = GhostRb::Controllers::BaseController.new(nil)
     obj.define_singleton_method(:endpoint) { 'tests' }
     obj
   end
 
   describe 'fluent' do
-    context '#limit' do 
+    context '#limit' do
       it 'return same ctrl instance' do
         limited_ctrl = ctrl.limit('all')
 
@@ -18,7 +18,7 @@ RSpec.describe GhostRb::Controllers::BaseController do
       end
     end
 
-    context '#include' do 
+    context '#include' do
       it 'returns same ctrl instance' do
         included_ctrl = ctrl.include('hello')
 
@@ -26,7 +26,7 @@ RSpec.describe GhostRb::Controllers::BaseController do
       end
     end
 
-    context '#page' do 
+    context '#page' do
       it 'returns same ctrl instance' do
         paged_ctrl = ctrl.page(2)
 
@@ -34,7 +34,7 @@ RSpec.describe GhostRb::Controllers::BaseController do
       end
     end
 
-    context '#order' do 
+    context '#order' do
       it 'returns same ctrl instance' do
         ordered_ctrl = ctrl.order('created_at')
 
@@ -42,7 +42,7 @@ RSpec.describe GhostRb::Controllers::BaseController do
       end
     end
 
-    context '#fields' do 
+    context '#fields' do
       it 'returns same ctrl instance' do
         fielded_ctrl = ctrl.fields(2)
 
@@ -50,7 +50,7 @@ RSpec.describe GhostRb::Controllers::BaseController do
       end
     end
 
-    context '#where' do 
+    context '#where' do
       it 'returns same ctrl instance' do
         where_ctrl = ctrl.where(include: 'author')
 
@@ -58,7 +58,7 @@ RSpec.describe GhostRb::Controllers::BaseController do
       end
     end
 
-    context '#find_by' do 
+    context '#find_by' do
       it 'throws GhostRb::Errors::RequestError with invalid key_value' do
         expect { ctrl.find_by(data: 'hello') }.to raise_error(GhostRb::Errors::InvalidEndpointError)
       end

@@ -60,7 +60,9 @@ module GhostRb
         query = client.default_query.merge(@params)
         status, content = client.get(endpoint, query)
 
-        raise_fetch_single_error(kvp, status, content['errors']) if error?(status)
+        if error?(status)
+          raise_fetch_single_error(kvp, status, content['errors'])
+        end
 
         resource_klass.generate(content)
       end
@@ -82,9 +84,8 @@ module GhostRb
         return [endpoint, kvp[:id]].join('/') if kvp.key?(:id)
         return [endpoint, 'slug', kvp[:slug]].join('/') if kvp.key?(:slug)
 
-        raise Errors::InvalidEndpointError.new(
-          "Cannot complete endpoint for #{endpoint}. Should be either :id or :slug"
-        )
+        raise Errors::InvalidEndpointError,
+              "Invalid endpoint for #{endpoint}. Should be either :id or :slug"
       end
     end
   end

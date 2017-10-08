@@ -5,8 +5,8 @@ require 'spec_helper'
 RSpec.describe GhostRb::Controllers::TagsController do
   let(:ctrl) do
     client = GhostRb::Client.new(ENV['URL'],
-                          ENV['CLIENT_ID'],
-                          ENV['CLIENT_SECRET'])
+                                 ENV['CLIENT_ID'],
+                                 ENV['CLIENT_SECRET'])
     GhostRb::Controllers::TagsController.new(client)
   end
 
@@ -15,7 +15,7 @@ RSpec.describe GhostRb::Controllers::TagsController do
       expect { ctrl }.not_to raise_error
     end
   end
-  
+
   context '#all' do
     it 'returns tags array' do
       tags = ctrl.all
@@ -25,7 +25,7 @@ RSpec.describe GhostRb::Controllers::TagsController do
     end
   end
 
-  context '#find_by' do 
+  context '#find_by' do
     it 'throws GhostRb::Errors::RequestError with invalid id' do
       expect { ctrl.find_by(id: -1) }.to raise_error(GhostRb::Errors::RequestError)
     end
