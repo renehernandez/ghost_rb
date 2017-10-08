@@ -25,29 +25,71 @@ Or install it yourself as:
 To create a new client:
 
 ```ruby
-client = GhostRb::Client.new('URL', 'CLIENT_ID'], 'CLIENT_SECRET')
+client = GhostRb::Client.new('URL', 'CLIENT_ID', 'CLIENT_SECRET')
 ```
+
+**Note:** If parameters are not specified for resources retrieval, the default values, as specified by [Ghost API](https://api.ghost.org/), are used.
 
 #### Posts
 
-To get a list with all the blog posts, simply write:
+To access posts from the blog, first create a controller:
 
 ```ruby
-status, posts = client.get_posts 
+ctrl = GhostRb::Controllers::PostsController.new(client) # using previous defined client var
 ```
 
-You can change the *limit* (defaults to all) of posts to return for the query and whether to include *author* and *tags* information.
+A handier way to get the controller is:
+```ruby
+ctrl = client.posts
+```
+
+##### Single post by id
+
+```ruby
+post = client.posts.find_by(id: 'lhafdkaalkdfha')
+```
+
+##### Single post by slug
+
+```ruby
+post = client.posts.find_by(slug: 'welcome-to-ghost')
+```
+
+##### Get all post by setting the limit
+
+```ruby
+posts = client.posts.limit('all').all
+```
+
+##### Using where
+
+```ruby
+ctrl = client.posts
+posts = posts.where(include: 'tags, author', limit: 5).all
+```
 
 #### Tags
 
-To get a list with all the tags, write instead:
+Similarly for tags, you can create directly the controller or call it from the client instance.
+
 
 ```ruby
-status, tags = client.get_tags
+ctrl = GhostRb::Controllers::TagsController.new(client)
+# or
+ctrl = client.tags
 ```
 
-You can change the *limit* (defaults to all) of tags to return for the query and whether to include *count.posts* information.
+##### All tags
 
+```ruby
+tags = client.tags.limit('all').all
+```
+
+## Documentation
+
+The documentation lives at the [github pages](https://renehernandez.github.io/ghost_rb/). For the nitty gritty details of the implementation go to [http://www.rubydoc.info/gems/ghost_rb](http://www.rubydoc.info/gems/ghost_rb).
+
+You can also go check [this post](https://bitsofknowledge.net/2017/10/02/ghost_rb-a-ghost-rest-api-client/) where I have provided an analysis of the implementation.
 
 ## Development
 
