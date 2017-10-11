@@ -10,8 +10,6 @@ module GhostRb
   class Client
     attr_reader :base_url, :client_id, :client_secret, :default_query
 
-    REQUEST_OK = 200
-
     def initialize(base_url, client_id, client_secret)
       @base_url = URI.join(base_url, 'ghost/', 'api/', 'v0.1/')
       @client_id = client_id
