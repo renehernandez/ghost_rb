@@ -36,4 +36,14 @@ RSpec.describe GhostRb::Client, integration: true do
       expect(ctrl).to be_a(GhostRb::Controllers::TagsController)
     end
   end
+
+  context '#get' do
+    it 'returns pair status, content' do
+      status, content = client.get('posts', client_id: ENV['CLIENT_ID'],
+                                            client_secret: ENV['CLIENT_SECRET'],
+                                            limit: 'all')
+      expect(status).to eql(200)
+      expect(content['posts']).not_to be_nil
+    end
+  end
 end
