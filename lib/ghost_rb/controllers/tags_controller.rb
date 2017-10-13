@@ -13,10 +13,6 @@ module GhostRb
         @resource_klass = Resources::Tag
       end
 
-      def all
-        fetch_list['tags'].map { |r| @resource_klass.generate(r) }
-      end
-
       private
 
       def raise_fetch_single_error(kvp, status, errors)
