@@ -16,6 +16,10 @@ module GhostRb
         @params = {}
       end
 
+      def all
+        fetch_list[@endpoint].map { |r| @resource_klass.generate(r) }
+      end
+
       def limit(limit)
         where(limit: limit)
       end
