@@ -13,7 +13,7 @@ module GhostRb
 
       def initialize(client)
         @client = client
-        @params = {}
+        @params = Support::HashWithIndifferentAccess.new
       end
 
       def all
