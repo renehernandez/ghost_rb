@@ -2,10 +2,10 @@
 
 require 'spec_helper'
 
-RSpec.describe GhostRb::Resources::Hydratable do
+RSpec.describe GhostRb::Support::Hydratable do
   let(:object) do
     obj = Class.new do
-      include GhostRb::Resources::Hydratable
+      include GhostRb::Support::Hydratable
 
       attr_accessor :foo
       attr_reader :bar

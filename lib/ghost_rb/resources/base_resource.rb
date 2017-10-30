@@ -7,7 +7,7 @@ module GhostRb
     # @author Rene Hernandez
     # @since 0.1
     class BaseResource
-      include Hydratable
+      include Support::Hydratable
 
       def self.generate(hash)
         res_instance = new
