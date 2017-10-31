@@ -6,11 +6,15 @@ RSpec.describe GhostRb::Support::HashWithIndifferentAccess do
   HashWithIndifferentAccess = GhostRb::Support::HashWithIndifferentAccess
   let(:empty_hash) { HashWithIndifferentAccess.new }
 
-  let(:loaded_hash) do 
-    HashWithIndifferentAccess.new({
+  let(:loaded_hash) do
+    HashWithIndifferentAccess.new(
       foo: 'Foo',
-      'bar' => 'Bar'
-    })
+      'bar' => 'Bar',
+      baz: {
+        'test' => 1,
+        success: false
+      }
+    )
   end
 
   context '#new' do
@@ -19,16 +23,20 @@ RSpec.describe GhostRb::Support::HashWithIndifferentAccess do
     end
 
     it 'copy elements from input hash' do
-      hash_with_input = HashWithIndifferentAccess.new({
-          'hello' => 1,
-          world: 2
-      })
+      hash_with_input = HashWithIndifferentAccess.new(
+        'hello' => 1,
+        world: 2
+      )
 
       expect(hash_with_input['hello']).to eql(1)
       expect(hash_with_input[:world]).to eql(2)
     end
+
+    it 'converts hash value to indifferent access' do
+      expect(loaded_hash['baz']).to be_a(HashWithIndifferentAccess)
+    end
   end
-  
+
   context '#[]' do
     it 'key as string or symbol returns same value' do
       expect(loaded_hash['foo']).to eql('Foo')
@@ -39,7 +47,6 @@ RSpec.describe GhostRb::Support::HashWithIndifferentAccess do
   context '#[]=' do
     it 'makes hash value to be indifferent access' do
       empty_hash[:sub_hash] = { one: 'one' }
-      
       expect(empty_hash['sub_hash']).to be_a(HashWithIndifferentAccess)
     end
 

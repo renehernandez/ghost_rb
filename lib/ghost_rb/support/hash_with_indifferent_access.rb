@@ -2,12 +2,14 @@
 
 module GhostRb
   module Support
+    # rubocop:disable Metrics/LineLength
     # Provides indifferent access for symbol and string keys.
     # Both :bar and "bar" are considered to be the same key.
     # This is implementation is heavily based on the
     # [ActiveSupport implementation]{http://api.rubyonrails.org/classes/ActiveSupport/HashWithIndifferentAccess.html}
     # @author Rene Hernandez
     # @since 0.3
+    # rubocop:enable Metrics/LineLength
     class HashWithIndifferentAccess < Hash
       def initialize(constructor = {})
         if constructor.respond_to?(:to_hash)
@@ -29,13 +31,25 @@ module GhostRb
       alias regular_writer []= unless method_defined?(:regular_writer)
 
       def []=(key, value)
-        regular_writer(convert_key(key), convert_value(value, for: :assignment))
+        regular_writer(convert_key(key), convert_value(value))
       end
 
       def dup
         self.class.new(self).tap do |new_hash|
           add_defaults(new_hash)
         end
+      end
+
+      def default(*args)
+        super(*args.map { |arg| convert_key(arg) })
+      end
+
+      def delete(key)
+        super(convert_key(key))
+      end
+
+      def fetch(key, *extras)
+        super(convert_key(key), *extras)
       end
 
       def key?(key)
@@ -45,10 +59,6 @@ module GhostRb
       alias has_key? key?
 
       alias include? key?
-
-      def delete(key)
-        super(convert_key(key))
-      end
 
       def update(other_hash)
         if other_hash.is_a? HashWithIndifferentAccess
@@ -80,29 +90,18 @@ module GhostRb
         new_hash
       end
 
-      def nested_under_indifferent_access
-        self
-      end
-
       private
 
       def convert_key(key)
         key.is_a?(Symbol) ? key.to_s : key
       end
 
-      def convert_value(value, options = {}) # :doc:
-        if value.is_a? Hash
-          if options[:for] == :to_hash
-            value.to_hash
-          else
-            value.nested_under_indifferent_access
-          end
-        elsif value.is_a?(Array)
-          value = value.dup if options[:for] != :assignment || value.frozen?
-          value.map! { |e| convert_value(e, options) }
-        else
-          value
-        end
+      def convert_value(value)
+        return self.class.new(value) if value.is_a? Hash
+
+        return value.map { |e| convert_value(e) } if value.is_a?(Array)
+
+        value
       end
 
       def add_defaults(target) # :doc:
