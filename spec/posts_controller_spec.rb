@@ -2,12 +2,17 @@
 
 require 'spec_helper'
 
-RSpec.describe GhostRb::Controllers::PostsController, integration: true do
+Client = GhostRb::Client
+PostsController = GhostRb::Controllers::PostsController
+RequestError = GhostRb::Errors::RequestError
+Post = GhostRb::Resources::Post
+
+RSpec.describe PostsController, integration: true do
   let(:ctrl) do
-    client = GhostRb::Client.new(ENV['URL'],
-                                 ENV['CLIENT_ID'],
-                                 ENV['CLIENT_SECRET'])
-    GhostRb::Controllers::PostsController.new(client)
+    client = Client.new(ENV['URL'],
+                        ENV['CLIENT_ID'],
+                        ENV['CLIENT_SECRET'])
+    PostsController.new(client)
   end
 
   context '#new' do
@@ -21,7 +26,7 @@ RSpec.describe GhostRb::Controllers::PostsController, integration: true do
       posts = ctrl.all
 
       expect(posts).to be_a(Array)
-      expect(posts[0]).to be_a(GhostRb::Resources::Post)
+      expect(posts[0]).to be_a(Post)
     end
   end
 
@@ -33,11 +38,11 @@ RSpec.describe GhostRb::Controllers::PostsController, integration: true do
 
   context '#find_by' do
     it 'throws GhostRb::Errors::RequestError with invalid id' do
-      expect { ctrl.find_by(id: -1) }.to raise_error(GhostRb::Errors::RequestError)
+      expect { ctrl.find_by(id: -1) }.to raise_error(RequestError)
     end
 
     it 'throws GhostRb::Errors::RequestError with invalid slug' do
-      expect { ctrl.find_by(slug: 'not-present') }.to raise_error(GhostRb::Errors::RequestError)
+      expect { ctrl.find_by(slug: 'not-present') }.to raise_error(RequestError)
     end
   end
 end

@@ -2,8 +2,9 @@
 
 require 'spec_helper'
 
-RSpec.describe GhostRb::Support::HashWithIndifferentAccess do
-  HashWithIndifferentAccess = GhostRb::Support::HashWithIndifferentAccess
+HashWithIndifferentAccess = GhostRb::Support::HashWithIndifferentAccess
+
+RSpec.describe HashWithIndifferentAccess do
   let(:empty_hash) { HashWithIndifferentAccess.new }
 
   let(:loaded_hash) do
