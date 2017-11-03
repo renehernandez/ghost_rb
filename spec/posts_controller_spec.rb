@@ -6,8 +6,9 @@ Client = GhostRb::Client
 PostsController = GhostRb::Controllers::PostsController
 RequestError = GhostRb::Errors::RequestError
 Post = GhostRb::Resources::Post
+User = GhostRb::Resources::User
 
-RSpec.describe PostsController, integration: true do
+RSpec.describe PostsController do
   let(:ctrl) do
     client = Client.new(ENV['URL'],
                         ENV['CLIENT_ID'],
@@ -36,6 +37,13 @@ RSpec.describe PostsController, integration: true do
     end
   end
 
+  context '#includes' do 
+    it 'adds author information' do
+      post = ctrl.include('author').limit(1).all[0]
+      expect(post.author).to be_a(User)
+    end
+  end
+  
   context '#find_by' do
     it 'throws GhostRb::Errors::RequestError with invalid id' do
       expect { ctrl.find_by(id: -1) }.to raise_error(RequestError)

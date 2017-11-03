@@ -17,7 +17,7 @@ module GhostRb
       end
 
       def all
-        fetch_list[@endpoint].map { |r| @resource_klass.generate(r) }
+        fetch_list.map { |r| @resource_klass.generate(r) }
       end
 
       def limit(limit)
@@ -54,7 +54,8 @@ module GhostRb
           @params.delete(key)
         end
 
-        fetch_single(kvp)
+        content = fetch_single(kvp)
+        resource_klass.generate(content)
       end
 
       private
@@ -68,7 +69,7 @@ module GhostRb
           raise_fetch_single_error(kvp, status, content['errors'])
         end
 
-        resource_klass.generate(content)
+        content
       end
 
       def fetch_list
@@ -77,7 +78,7 @@ module GhostRb
 
         raise_fetch_list_error(status, content['errors']) if error?(status)
 
-        content
+        content[@endpoint]
       end
 
       def error?(status)

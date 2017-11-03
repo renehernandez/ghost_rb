@@ -11,16 +11,16 @@ module GhostRb
     # @since 0.3
     # rubocop:enable Metrics/LineLength
     class HashWithIndifferentAccess < Hash
-      def initialize(constructor = {})
-        if constructor.respond_to?(:to_hash)
+      def initialize(data = {})
+        if data.respond_to?(:to_hash)
           super()
-          update(constructor)
+          update(data)
 
-          hash = constructor.to_hash
+          hash = data.to_hash
           self.default = hash.default if hash.default
           self.default_proc = hash.default_proc if hash.default_proc
         else
-          super(constructor)
+          super(data)
         end
       end
 
@@ -82,10 +82,10 @@ module GhostRb
 
       def to_hash
         new_hash = {}
-        add_defaults(_new_hash)
+        add_defaults(new_hash)
 
         each do |key, value|
-          new_hash[key] = convert_value(value, for: :to_hash)
+          new_hash[key] = convert_value(value)
         end
         new_hash
       end

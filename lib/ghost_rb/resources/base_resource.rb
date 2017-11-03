@@ -14,6 +14,10 @@ module GhostRb
         res_instance.hydrate(hash)
         res_instance
       end
+
+      def self.hash_value?(data, key)
+        data.key?(key) && data[key].is_a?(Hash)
+      end
     end
   end
 end
