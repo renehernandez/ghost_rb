@@ -1,36 +1,39 @@
 sudo: false
 language: ruby
 rvm:
-  - 2.4.0
+- 2.4.0
 env:
   global:
   - CC_TEST_REPORTER_ID=a56fc1316eb9869f9ef69353912ad37abd138ff4a594b6290c9830718ae5cd81
 before_install: gem install bundler -v 1.14.4
 before_script:
-- curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+- curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64
+  > ./cc-test-reporter
 - chmod +x ./cc-test-reporter
-- ./cc-test-reporter before-build
+- "./cc-test-reporter before-build"
 script:
 - bundle exec rspec
 after_script:
-- ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
+- "./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT"
 before_deploy:
 - cat ./README.md >> ./docs/index.md
 deploy:
-- provider: pages
-  skip_cleanup: true
-  github_token: "$GITHUB_TOKEN"
-  local_dir: "./docs"
-  target_branch: gh-pages
-  on:
-    branch: 
+  matrix:
+  - provider: pages
+    skip_cleanup: true
+    github_token: "$GITHUB_TOKEN"
+    local_dir: "./docs"
+    target_branch: gh-pages
+    on:
+      branch:
       - develop
       - master
-- provider: rubygems
-  api_key:
-    secure: aZt6t60GH8ISKGw+AY/Pik1rgvYWJW0uc6Co35OlOBTNs3YitHbk5sMTq2wP0bs6qvJyPJDedAXU5F1ZEEuWz6m2wScD+Ld1hscwadNA7xcdQX6VWsJqR4biq4MkR5fLmQnTa+cDcG476J9+vL7qHJPNuiN+3jm2ODhvFlmtwtx/nXv1KgoYgpUVKBENuaVkL/7zGiFTs0nc4R32U7HGfzOGg7uXKK2JYsW5PN3KpeYVM3Df8qemVIhT6InBZvGovN1PfQ4oFV25VPLCLrQPY+qCJt54LvJQAhZVPYQaBowm1Pgg6tPA3dIHAaHI3iPKi1hOFQLoSci70OmQb7My38gWU0ARkq02eiR0uZrhkcYOuVqVU4quOGuEpagqDuWnXIz7LfnZAzfqers//TKFl/o2sLvOEfCSMZFiby6f9vk87SLyRCcsYtxYQfRBTanCgB2AlOKalSZ+WzQ4F8LvZJZbgxEoN9ul1MxHP1SeSwDlBHpXutxrX+EOfP8b/Bvi0nu8Xq2Y7HbPtfiVOXOM9aiUqWJDVaf+S5zhWd72IS54JUcCgIjeB8ryK9k1vSnfvm1VMOo7illN4MxfNNYMQk5zSeyhOLzTIQvFgALrJDGk4JtZjire0BFWUkrtEqoiD1ZuMIKWVLZbIBBMskl+bkf+VvwiubX6LibVAC4itlk=
-  gem: ghost_rb
-  on:
-    tags: true
-    repo: renehernandez/ghost_rb
-    branch: master
+  - provider: rubygems
+    api_key:
+      secure: NG9gd7Ff8Cs8LJhIjuWtbQSBRFGBBgfJ0/IKkbiMKQi3ezNKKHz1ha2jMvR6pFj8YYCkvnsO7Lj+VHCJU0SbRziPSeYxjBdDSKvOJ0K5Ui0vdFJzIZHgWJdD/C/ns60A1FnweR3cVAYBfCpquJpTKRMWmc6f1+ZRy/XzkwDOBdK9/TChzhjEO8xSHVq74EcMIwM9CO3rAnwgdzXszD5obwZ9/gIY64uivg0snxcvc5REPBEfpmn6GQ40mmIFj0tm/bF3BgE7B2h2cWEsPiUsNfl+UZy/LApJeuV8bpfL68QRcx0zGHYpMr3ZmWrZONL2dIiRN7YHXZVPCi2Fr5z5HdTrvy/WnLx3AwjJ0/j3uTHQUqRd9aqilXSqY6i68E0gaSQcrFUQts6k2AYtJzB/h+VudKxHpIcqt6zKH3O3FOcAtV15yDvQVv+krLrMPRAJ6S8idSpEkOjiNiKGjV0XpQ30B3Wchpzqr/c4ryAyb/FTPQSWLYdOd0koUeGEDBcQ9nZ0tSN58RSDyFSlk2ChZRqySQTpod2b1XzQ1NRR/hYo23C/tZB1xf1Z3MoT7cM4/T6LIsCISM5ZqJpVgY3s5E1crQxxjX1Jvy9gh28U+MABwHeZkmEDZyqC47quVn4+ArKOeuVSnJjuvgBaP7MIGZghgAT3ijIpDIbixDF31vc=
+    gem: ghost_rb
+    on:
+      tags: true
+      repo: renehernandez/ghost_rb
+      branch: master
+  
