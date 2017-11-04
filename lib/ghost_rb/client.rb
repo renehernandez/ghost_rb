@@ -15,7 +15,10 @@ module GhostRb
       @client_id = client_id
       @client_secret = client_secret
       @http = HTTPClient.new(base_url: @base_url)
-      @default_query = { client_id: @client_id, client_secret: @client_secret }
+      @default_query = Support::HashWithIndifferentAccess.new(
+        client_id: @client_id,
+        client_secret: @client_secret
+      )
     end
 
     def posts
@@ -28,7 +31,10 @@ module GhostRb
 
     def get(endpoint, query)
       response = @http.get(endpoint, query, {}, follow_redirect: true)
-      content = JSON.parse(response.body)
+      content = Support::HashWithIndifferentAccess.new(
+        JSON.parse(response.body)
+      )
+
       [response.status_code, content]
     end
   end

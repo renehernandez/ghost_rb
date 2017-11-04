@@ -2,12 +2,17 @@
 
 require 'spec_helper'
 
-RSpec.describe GhostRb::Controllers::TagsController do
+Client = GhostRb::Client
+TagsController = GhostRb::Controllers::TagsController
+RequestError = GhostRb::Errors::RequestError
+Tag = GhostRb::Resources::Tag
+
+RSpec.describe TagsController do
   let(:ctrl) do
-    client = GhostRb::Client.new(ENV['URL'],
-                                 ENV['CLIENT_ID'],
-                                 ENV['CLIENT_SECRET'])
-    GhostRb::Controllers::TagsController.new(client)
+    client = Client.new(ENV['URL'],
+                        ENV['CLIENT_ID'],
+                        ENV['CLIENT_SECRET'])
+    TagsController.new(client)
   end
 
   context '#new' do
@@ -21,17 +26,17 @@ RSpec.describe GhostRb::Controllers::TagsController do
       tags = ctrl.all
 
       expect(tags).to be_a(Array)
-      expect(tags[0]).to be_a(GhostRb::Resources::Tag)
+      expect(tags[0]).to be_a(Tag)
     end
   end
 
   context '#find_by' do
     it 'throws GhostRb::Errors::RequestError with invalid id' do
-      expect { ctrl.find_by(id: -1) }.to raise_error(GhostRb::Errors::RequestError)
+      expect { ctrl.find_by(id: -1) }.to raise_error(RequestError)
     end
 
     it 'throws GhostRb::Errors::RequestError with invalid slug' do
-      expect { ctrl.find_by(slug: 'not-present') }.to raise_error(GhostRb::Errors::RequestError)
+      expect { ctrl.find_by(slug: 'not-present') }.to raise_error(RequestError)
     end
   end
 end
