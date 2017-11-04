@@ -3,7 +3,7 @@
 module GhostRb
   # Provides utility classes and modules extensions for GhostRb
   # @author Rene Hernandez
-  # @since 0.3
+  # @since 0.2.3
   module Support
     # @author Rene Hernandez
     # @since 0.1
