@@ -18,7 +18,6 @@ after_script:
 before_deploy:
 - cat ./README.md >> ./docs/index.md
 deploy:
-  matrix:
   - provider: pages
     skip_cleanup: true
     github_token: "$GITHUB_TOKEN"
