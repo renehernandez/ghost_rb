@@ -7,6 +7,7 @@ PostsController = GhostRb::Controllers::PostsController
 RequestError = GhostRb::Errors::RequestError
 Post = GhostRb::Resources::Post
 User = GhostRb::Resources::User
+Tag = GhostRb::Resources::Tag
 
 RSpec.describe PostsController do
   let(:ctrl) do
@@ -37,13 +38,19 @@ RSpec.describe PostsController do
     end
   end
 
-  context '#includes' do 
+  context '#includes' do
     it 'adds author information' do
       post = ctrl.include('author').limit(1).all[0]
       expect(post.author).to be_a(User)
     end
+
+    it 'adds tags information' do
+      post = ctrl.include('tags').limit(1).all[0]
+      expect(post.tags).to be_a(Array)
+      expect(post.tags[0]).to be_a(Tag)
+    end
   end
-  
+
   context '#find_by' do
     it 'throws GhostRb::Errors::RequestError with invalid id' do
       expect { ctrl.find_by(id: -1) }.to raise_error(RequestError)

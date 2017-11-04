@@ -20,7 +20,6 @@ module GhostRb
 
         inst
       end
-
     end
   end
 end
