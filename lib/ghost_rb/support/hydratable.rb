@@ -1,7 +1,10 @@
 # frozen_string_literal: true
 
 module GhostRb
-  module Resources
+  # Provides utility classes and modules extensions for GhostRb
+  # @author Rene Hernandez
+  # @since 0.3
+  module Support
     # @author Rene Hernandez
     # @since 0.1
     module Hydratable

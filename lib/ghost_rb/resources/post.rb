@@ -6,17 +6,17 @@ module GhostRb
     # @since 0.1
     class Post < BaseResource
       attr_accessor :id, :title, :slug, :html, :page,
-                    :status, :published_at, :created_at, :author_id,
-                    :visibility, :featured, :plaintext, :author, :tags
+                    :status, :published_at, :created_at, :author,
+                    :visibility, :featured, :plaintext, :tags
 
       alias page? page
 
       alias featured? featured
 
-      def self.generate(hash)
-        inst = super(hash)
-        inst.author = User.generate(hash[:author]) if hash.key?(:author)
-        inst.tags = hash[:tags].map { |t| Tag.generate(t) } if hash.key?(:tags)
+      def self.generate(data)
+        inst = super(data)
+        inst.author = User.generate(data[:author]) if hash_value?(data, :author)
+        inst.tags = data[:tags].map { |t| Tag.generate(t) } if data.key?(:tags)
 
         inst
       end
