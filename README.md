@@ -1,4 +1,4 @@
-# GhostRb [![Build Status](https://travis-ci.org/renehernandez/ghost_rb.svg)](https://travis-ci.org/renehernandez/ghost_rb) [![Code Climate](https://codeclimate.com/github/renehernandez/ghost_rb/badges/gpa.svg)](https://codeclimate.com/github/renehernandez/ghost_rb) [![Test Coverage](https://codeclimate.com/github/renehernandez/ghost_rb/badges/coverage.svg)](https://codeclimate.com/github/renehernandez/ghost_rb/coverage)
+# GhostRb [![Build Status](https://travis-ci.org/renehernandez/ghost_rb.svg)](https://travis-ci.org/renehernandez/ghost_rb) [![Gem Version](https://badge.fury.io/rb/ghost_rb.svg)](https://badge.fury.io/rb/ghost_rb)[![Code Climate](https://codeclimate.com/github/renehernandez/ghost_rb/badges/gpa.svg)](https://codeclimate.com/github/renehernandez/ghost_rb) [![Test Coverage](https://codeclimate.com/github/renehernandez/ghost_rb/badges/coverage.svg)](https://codeclimate.com/github/renehernandez/ghost_rb/coverage)
 
 GhostRb is a simple REST API client to interact with a given Ghost blog. As of now, it supports Client Authentication, which means it can only query public data.
 
