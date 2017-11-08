@@ -23,6 +23,20 @@ RSpec.describe PostsController do
     end
   end
 
+  context 'attr hydration' do
+    it 'returns nil for plaintext by default' do
+      post = ctrl.limit(1).all[0]
+
+      expect(post.plaintext).to be_nil
+    end
+
+    it 'return plaintext if format is set' do
+      post = ctrl.limit(1).formats('plaintext').all[0]
+
+      expect(post.plaintext).not_to be_nil
+    end
+  end
+
   context '#all' do
     it 'returns posts array' do
       posts = ctrl.all
