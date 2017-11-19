@@ -7,7 +7,7 @@ module GhostRb
     class PostsController < BaseController
       attr_reader :endpoint, :resource_klass
 
-      def initialize(client)
+      def initialize(client, params = nil)
         super
         @endpoint = 'posts'
         @resource_klass = Resources::Post

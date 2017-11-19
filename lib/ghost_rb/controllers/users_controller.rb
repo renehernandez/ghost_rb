@@ -8,7 +8,7 @@ module GhostRb
     class UsersController < BaseController
       attr_reader :endpoint, :resource_klass
 
-      def initialize(client)
+      def initialize(client, params = nil)
         super
         @endpoint = 'users'
         @resource_klass = Resources::User

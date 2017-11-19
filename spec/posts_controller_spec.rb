@@ -67,4 +67,14 @@ RSpec.describe PostsController do
       expect { ctrl.find_by(slug: 'not-present') }.to raise_error(RequestError)
     end
   end
+
+  context 'multiple queries' do
+    it 'do not modify previous ctrl params' do
+      ctrl_one = ctrl.limit(1)
+      ctrl_two = ctrl_one.include('tags')
+
+      expect(ctrl_one).not_to eql(ctrl_two)
+      expect(ctrl_one.params).not_to eql(ctrl_two.params)
+    end
+  end
 end

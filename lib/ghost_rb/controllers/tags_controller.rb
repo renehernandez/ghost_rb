@@ -7,7 +7,7 @@ module GhostRb
     class TagsController < BaseController
       attr_reader :endpoint, :resource_klass
 
-      def initialize(client)
+      def initialize(client, params = nil)
         super
         @endpoint = 'tags'
         @resource_klass = Resources::Tag
