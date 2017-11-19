@@ -29,6 +29,10 @@ module GhostRb
       Controllers::TagsController.new(self)
     end
 
+    def users
+      Controllers::UsersController.new(self)
+    end
+
     def get(endpoint, query)
       response = @http.get(endpoint, query, {}, follow_redirect: true)
       content = Support::HashWithIndifferentAccess.new(

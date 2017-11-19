@@ -2,13 +2,6 @@
 
 require 'spec_helper'
 
-Client = GhostRb::Client
-PostsController = GhostRb::Controllers::PostsController
-RequestError = GhostRb::Errors::RequestError
-Post = GhostRb::Resources::Post
-User = GhostRb::Resources::User
-Tag = GhostRb::Resources::Tag
-
 RSpec.describe PostsController do
   let(:ctrl) do
     client = Client.new(ENV['URL'],
@@ -20,6 +13,20 @@ RSpec.describe PostsController do
   context '#new' do
     it 'does not throw exception' do
       expect { ctrl }.not_to raise_error
+    end
+  end
+
+  context 'attr hydration' do
+    it 'returns nil for plaintext by default' do
+      post = ctrl.limit(1).all[0]
+
+      expect(post.plaintext).to be_nil
+    end
+
+    it 'return plaintext if format is set' do
+      post = ctrl.limit(1).formats('plaintext').all[0]
+
+      expect(post.plaintext).not_to be_nil
     end
   end
 
@@ -58,6 +65,16 @@ RSpec.describe PostsController do
 
     it 'throws GhostRb::Errors::RequestError with invalid slug' do
       expect { ctrl.find_by(slug: 'not-present') }.to raise_error(RequestError)
+    end
+  end
+
+  context 'multiple queries' do
+    it 'do not modify previous ctrl params' do
+      ctrl_one = ctrl.limit(1)
+      ctrl_two = ctrl_one.include('tags')
+
+      expect(ctrl_one).not_to eql(ctrl_two)
+      expect(ctrl_one.params).not_to eql(ctrl_two.params)
     end
   end
 end

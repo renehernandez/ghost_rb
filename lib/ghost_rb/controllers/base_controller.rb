@@ -11,9 +11,9 @@ module GhostRb
     class BaseController
       attr_reader :client, :params
 
-      def initialize(client)
+      def initialize(client, params = nil)
         @client = client
-        @params = Support::HashWithIndifferentAccess.new
+        @params = Support::HashWithIndifferentAccess.new(params)
       end
 
       def all
@@ -45,8 +45,7 @@ module GhostRb
       end
 
       def where(hash)
-        @params.merge!(hash)
-        self
+        self.class.new(client, @params.merge(hash))
       end
 
       def find_by(kvp)

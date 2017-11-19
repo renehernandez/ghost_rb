@@ -2,12 +2,12 @@
 
 require 'spec_helper'
 
-RSpec.describe TagsController do
+RSpec.describe UsersController do
   let(:ctrl) do
     client = Client.new(ENV['URL'],
                         ENV['CLIENT_ID'],
                         ENV['CLIENT_SECRET'])
-    TagsController.new(client)
+    UsersController.new(client)
   end
 
   context '#new' do
@@ -17,11 +17,11 @@ RSpec.describe TagsController do
   end
 
   context '#all' do
-    it 'returns tags array' do
-      tags = ctrl.all
+    it 'returns users array' do
+      users = ctrl.all
 
-      expect(tags).to be_a(Array)
-      expect(tags[0]).to be_a(Tag)
+      expect(users).to be_a(Array)
+      expect(users[0]).to be_a(User)
     end
   end
 
