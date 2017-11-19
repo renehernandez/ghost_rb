@@ -2,10 +2,6 @@
 
 require 'spec_helper'
 
-Client = GhostRb::Client
-PostsController = GhostRb::Controllers::PostsController
-TagsController = GhostRb::Controllers::TagsController
-
 RSpec.describe Client do
   let(:dummy_client) do
     Client.new('https://example.com',
@@ -28,7 +24,6 @@ RSpec.describe Client do
   context '#posts' do
     it 'returns instance of GhostRb::Controllers::PostsController' do
       ctrl = client.posts
-
       expect(ctrl.class).to eql(PostsController)
     end
   end
@@ -36,13 +31,19 @@ RSpec.describe Client do
   context '#tags' do
     it 'returns instance of GhostRb::Controllers::TagsController' do
       ctrl = client.tags
-
       expect(ctrl).to be_a(TagsController)
     end
   end
 
+  context '#users' do
+    it 'returns instance of GhostRb::Controllers::UsersControllers' do
+      ctrl = client.users
+      expect(ctrl).to be_a(UsersController)
+    end
+  end
+
   context '#get' do
-    it 'returns pair status, content' do
+    it 'returns pair [status, content]' do
       status, content = client.get('posts', client_id: ENV['CLIENT_ID'],
                                             client_secret: ENV['CLIENT_SECRET'],
                                             limit: 'all')

@@ -2,8 +2,6 @@
 
 require 'spec_helper'
 
-User = GhostRb::Resources::User
-
 RSpec.describe User do
   let(:user) { User.new }
 
