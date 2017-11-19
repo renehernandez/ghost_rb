@@ -2,13 +2,6 @@
 
 require 'spec_helper'
 
-Client = GhostRb::Client
-PostsController = GhostRb::Controllers::PostsController
-RequestError = GhostRb::Errors::RequestError
-Post = GhostRb::Resources::Post
-User = GhostRb::Resources::User
-Tag = GhostRb::Resources::Tag
-
 RSpec.describe PostsController do
   let(:ctrl) do
     client = Client.new(ENV['URL'],

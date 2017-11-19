@@ -12,6 +12,7 @@ require 'ghost_rb/resources/tag'
 require 'ghost_rb/controllers/base_controller'
 require 'ghost_rb/controllers/posts_controller'
 require 'ghost_rb/controllers/tags_controller'
+require 'ghost_rb/controllers/users_controller'
 
 # @author Rene Hernandez
 # @since 0.1

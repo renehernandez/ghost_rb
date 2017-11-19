@@ -2,8 +2,6 @@
 
 require 'spec_helper'
 
-Tag = GhostRb::Resources::Tag
-
 RSpec.describe Tag do
   let(:tag) { Tag.new }
 

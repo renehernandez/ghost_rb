@@ -2,10 +2,6 @@
 
 require 'spec_helper'
 
-Client = GhostRb::Client
-PostsController = GhostRb::Controllers::PostsController
-TagsController = GhostRb::Controllers::TagsController
-
 RSpec.describe Client do
   let(:dummy_client) do
     Client.new('https://example.com',

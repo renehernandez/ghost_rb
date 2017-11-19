@@ -2,8 +2,6 @@
 
 require 'spec_helper'
 
-Post = GhostRb::Resources::Post
-
 RSpec.describe Post do
   let(:post) { Post.new }
 
